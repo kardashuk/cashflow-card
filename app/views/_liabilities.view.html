@@ -1,0 +1,14 @@
+<li ng-repeat="l in game.liabilities">
+    <div class="pull-right">
+        <money value="l.price" ng-if="l.type!=='credit'"></money>
+        <div ng-if="l.type==='credit'">
+            <button class="btn btn-default btn-inline" ng-click="app.showCredit = true;">
+                <money value="l.price"  ></money>
+            </button>
+            <!--credit form -->
+            <div ng-if="app.showCredit" class="bubble-container" ng-include="'views/_credit.html'"></div>
+            <!--credit form -->
+        </div>
+    </div>
+    {{l.title}} (<money value="expensesByLiability(l)"></money>)
+</li>

@@ -24,18 +24,23 @@
 }
 .col{
   float: left;
-  width: 50%;
-  &:first-child{
-    padding-right: 10px;
+  @media (max-width: 450px) {
+    width: 100%;
   }
-  &:last-child{
-    padding-left: 10px;
-  }
-  &.col-lg{
-    width: 70%;
-  }
-  .col-sm{
-    width: 30%;
+  @media (min-width: 450px) {
+    width: 50%;
+    &:first-child{
+      padding-right: 10px;
+    }
+    &:last-child{
+      padding-left: 10px;
+    }
+    &.col-lg{
+      width: 70%;
+    }
+    .col-sm{
+      width: 30%;
+    }
   }
 }
 .input-block{

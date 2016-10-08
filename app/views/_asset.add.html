@@ -1,8 +1,15 @@
 <div class="bubble-shade" ng-click="cancelCredit()"></div>
 <div class="pull-right bubble text-left">
     <div ng-if="!asset.type">
-        <label>Вид актива</label>
-        <select ng-model="asset.type" ng-options="name as title for (name,title) in asset_types"></select>
+        <label>Что покупаем?</label>
+        <ul>
+            <li ng-repeat="(name,title) in asset_types">
+                <button class="btn btn-block btn-default" ng-click="asset.type=name">{{title}}</button>
+            </li>
+            <li>
+                <button class="btn btn-cancel btn-block" ng-click="cancelAsset(a)">Отмена</button>
+            </li>
+        </ul>
     </div>
 
     <div ng-if="asset.type === 'real_estate'">
@@ -16,11 +23,11 @@
         </div>
         <div>
             <label>Первый взнос:</label><br/>
-            <input  ng-model="asset.payment" />
+            <input  ng-model="asset.payment"  ng-change="asset.mortgage = asset.price - asset.payment" />
         </div>
         <div>
             <label>Ипотека:</label><br/>
-            <input  ng-model="asset.mortgage" />
+            <input  ng-model="asset.mortgage" ng-change="asset.payment = asset.price - asset.mortgage"/>
         </div>
         <div>
             <label>Доходность:</label><br/>
@@ -39,11 +46,11 @@
         </div>
         <div>
             <label>Первый взнос:</label><br/>
-            <input  ng-model="asset.payment" />
+            <input  ng-model="asset.payment" ng-change="asset.mortgage = asset.price - asset.payment" />
         </div>
         <div>
             <label>Долг:</label><br/>
-            <input  ng-model="asset.mortgage" />
+            <input  ng-model="asset.mortgage" ng-change="asset.payment = asset.price - asset.mortgage" />
         </div>
         <div>
             <label>Доходность:</label><br/>
@@ -77,15 +84,15 @@
         </div>
         <div>
             <label>Количество:</label><br/>
-            <input  ng-model="asset.item_count" />
+            <input  ng-model="asset.items_count" />
         </div>
         <div>
-            <label>ИТОГО:</label> <money value="asset.item_price * asset.item_count"></money>
+            <label>ИТОГО:</label> <money value="asset.item_price * asset.items_count"></money>
         </div>
     </div>
 
-    <div class="btn-row">
+    <div class="btn-row" ng-if="asset.type">
         <button class="btn btn-cancel" ng-click="cancelAsset(a)">Отмена</button>
-        <button class="btn btn-main" ng-if="asset.type" ng-click="saveAsset(a)">Ok</button>
+        <button class="btn btn-main"  ng-click="saveAsset(a, asset)">Ok</button>
     </div>
 </div>

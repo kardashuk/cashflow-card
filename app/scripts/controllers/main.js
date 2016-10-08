@@ -84,8 +84,20 @@ function ($scope, $storage, ProfessionsService) {
     $scope.incomeByType = function(type){
         if (type === 'salary'){
             return $scope.game.player.salary;
+        }else if(type==='capital'){
+            return 0;
+        }else if(type==='dividends'){
+            return $scope._sum($scope.game.assets.others, function(a){
+                return a.income || 0;
+            });
+        }else if (type==='investments'){
+            return $scope._sum($scope.game.assets.business, function(b){
+                return b.income || 0;
+            }) + $scope._sum($scope.game.assets.real_estate, function(re){
+                return re.income || 0;
+            });
         }else{
-            console.log('Warning: unknown income type');
+            console.log('Warning: unknown income type', type);
             return 0;
         }
     };
@@ -122,7 +134,7 @@ function ($scope, $storage, ProfessionsService) {
     $scope._sum = function(list, cmp){
         var sum = 0;
         angular.forEach(list, function(e){
-            sum += cmp(e);
+            sum += parseInt(cmp(e),10) || 0;
         });
         return sum;
     };
@@ -211,8 +223,13 @@ function ($scope, $storage, ProfessionsService) {
         if (origin){
             //@todo: add edit here
         }else{
-            $scope.game.assets[$scope.asset.type].push($scope.asset);
-            $scope.cancelAsset(origin);
+            if($scope.assetBuyPrice($scope.asset)>$scope.game.balance){
+                alert('У Вас не достаточно денег');
+            }else{
+                $scope._payment($scope.assetBuyPrice($scope.asset));
+                $scope.game.assets[$scope.asset.type].push(angular.copy($scope.asset));
+                $scope.cancelAsset(origin);
+            }
         }
     };
     $scope.cancelAsset = function(origin){
@@ -224,4 +241,89 @@ function ($scope, $storage, ProfessionsService) {
 
         }
     };
+
+    $scope.assetPrice = function(asset){
+        return asset.type==='shares' ? asset.item_price*asset.items_count : asset.price;
+    };
+    $scope.assetBuyPrice = function(asset){
+        if (asset.type==='shares'){
+            return asset.item_price*asset.items_count;
+        }else if(asset.type==='real_estate' || asset.type==='business'){
+            return asset.payment;
+        }else{
+            return asset.price;
+        }
+    };
+    $scope.x2Shares = function(asset){
+        asset.items_count *= 2;
+        asset.item_price = asset.item_price/2;
+        if(asset.item_price === 0){
+            asset.item_price = 1;
+        }
+        $scope.cancelShareActions(asset);
+    };
+    $scope.div2Shares = function(asset){
+        asset.items_count = Math.floor(asset.items_count/2);
+        if (asset.items_count===0){
+            asset.items_count = 1;
+        }else{
+            asset.item_price *= 2;
+        }
+        $scope.cancelShareActions(asset);
+    };
+    $scope.cancelShareActions = function(a){
+        a.showActions =false;
+        a.showSale =false;
+        delete a._sale;
+    };
+    $scope.removeAsset = function(asset){
+        var ind = $scope.game.assets[asset.type].indexOf(asset);
+        if (ind !==-1){
+            $scope.game.assets[asset.type].splice(ind, 1);
+        }else{
+            console.log('Warning: try to remove broken asset', asset);
+        }
+    };
+    $scope.saleShares = function(asset){
+        if (asset._sale.count > asset.items_count){
+            alert('У вас нет столько акций');
+        }else if (asset._sale.count>0){
+            asset.items_count -= asset._sale.count;
+            $scope._income(asset._sale.count*asset._sale.price);
+            if(asset.items_count === 0){
+                $scope.cancelShareActions(asset);
+                $scope.removeAsset(asset);
+            }else{
+                $scope.cancelShareActions(asset);
+            }
+        }else{
+            $scope.cancelShareActions(asset);
+        }
+    };
+    $scope.saleAsset = function(asset){
+        var price = parseInt(prompt('За сколько продаем?'),10);
+        if (price>=0){
+            if (asset.type=='others'){
+                $scope._income(price);
+                $scope.removeAsset(asset);
+            }else{
+                if (price<asset.mortgage){
+                    if ($scope.game.balance < asset.mortgage - price){
+                        alert('У вас нет денег что бы закрыть ету сделку');
+                    }else if (confirm('Вы останетесь в убытке. Продолжить?')){
+                        $scope._payment(asset.mortgage - price);
+                        $scope.removeAsset(asset);
+                    }else{
+                        $scope.cancelShareActions(asset);
+                    }
+                }else{
+                    $scope._income(price - asset.mortgage);
+                    $scope.removeAsset(asset);
+                }
+            }
+        }else{
+            $scope.cancelShareActions(asset);
+        }
+    };
+
 }]);

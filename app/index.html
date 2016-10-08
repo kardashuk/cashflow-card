@@ -18,13 +18,7 @@
 
     <div ng-controller="MainCtrl" class="main">
         <div ng-if="!game" ng-include="'views/main.html'"></div>
-
         <div ng-if="game">
-            <i class="icon icon-menu pull-right" ng-click="app.showMenu = !app.showMenu"></i>
-            <ul class="app-menu" ng-if="app.showMenu" ng-click="app.showMenu=false;">
-                <li ng-click="stopGame()">Home</li>
-            </ul>
-
             <div ng-if="!game.player" ng-include="'views/player.html'" class="player-card"></div>
             <div ng-if="game.player"  ng-include="'views/rat-card.html'"></div>
 

@@ -17,6 +17,9 @@
   padding: 10px 15px;
   margin-top: 7px;
   right: 0;
+  label{
+    margin-top: 5px;
+  }
   &:before,&:after{
     position: absolute;
     z-index: 4;

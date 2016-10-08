@@ -1,0 +1,44 @@
+<li ng-repeat="(assetType,assetList) in game.assets">
+    <b>{{asset_types[assetType]}}</b>
+    <ul>
+        <li ng-repeat="a in assetList">
+            <div ng-click="a.showActions = true">
+                <div >
+                    <money value="assetPrice(a)" class="pull-right"></money>
+                    {{a.title}} <span ng-if="a.type!=='shares'">(<money value="a.income||0"></money>)</span>
+                </div>
+                <div class="row" ng-if="a.type=='shares'">
+                    <div class="col">
+                        Количество: {{a.items_count}}
+                    </div>
+                    <div class="col">
+                        <money class="pull-right" value="a.item_price<1?'~0':a.item_price"></money>
+                        За Штуку:
+                    </div>
+                </div>
+                <div class="row" ng-if="a.type=='real_estate'">
+                    <div class="col">
+                        <money class="pull-right" value="a.payment"></money>
+                        Первый взнос:
+                    </div>
+                    <div class="col">
+                        <money class="pull-right" value="a.mortgage"></money>
+                        Ипотека:
+                    </div>
+                </div>
+                <div class="row" ng-if="a.type=='business'">
+                    <div class="col">
+                        <money class="pull-right" value="a.payment"></money>
+                        Первый взнос:
+                    </div>
+                    <div class="col">
+                        <money class="pull-right" value="a.mortgage"></money>
+                        Долг:
+                    </div>
+                </div>
+            </div>
+            <div ng-if="a.showActions" ng-include="'views/_asset.shares.html'" class="bubble-container"></div>
+
+        </li>
+    </ul>
+</li>

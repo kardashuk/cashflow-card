@@ -1,0 +1,30 @@
+<div class="bubble-shade" ng-click="cancelShareActions(a)"></div>
+<div class="pull-right bubble text-left" >
+    <div>
+        <label>Что делаем?</label>
+        <div ng-if="!a.showSale">
+            <button class="btn btn-cancel " ng-click="cancelShareActions(a);">Отмена</button>
+            <button class="btn btn-main " ng-if="a.type=='shares'" ng-click="a.showSale = true;">Продать</button>
+            <button class="btn btn-main " ng-if="a.type!='shares'" ng-click="saleAsset(a);">Продать</button>
+            <div class="text-right" ng-if="a.type=='shares'">
+                <button class="btn btn-default " ng-click="x2Shares(a)">x2</button>
+                <button class="btn btn-default " ng-click="div2Shares(a)">x1/2</button>
+            </div>
+        </div>
+        <div ng-if="a.showSale " ng-init="a._sale={price:null,count:a.items_count}">
+            <div>
+                <label>Цена за штуку:</label><br/>
+                <input  ng-model="a._sale.price" />
+            </div>
+            <div>
+                <label>Количество:</label><br/>
+                <input  ng-model="a._sale.count" />
+            </div>
+            <div>
+                <label>ИТОГО:</label> <money value="a._sale.price * a._sale.count"></money>
+            </div>
+            <button class="btn btn-main btn-block" ng-click="saleShares(a)">Продать</button>
+            <button class="btn btn-cancel btn-block" ng-click="cancelShareActions(a);">Отмена</button>
+        </div>
+    </div>
+</div>
