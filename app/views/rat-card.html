@@ -1,0 +1,127 @@
+<div>
+    <div class="pull-right">
+        Детей: {{game.player.child_count}}
+        <span ng-if="game.player.child_count<3" class="btn btn-default btn-block icon icon-plus" ng-click="newborn()"></span>
+    </div>
+    <h3>{{game.player.name}} ({{game.player.job}})</h3>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h4 ng-click="app.showMoneyDetails = !app.showMoneyDetails">
+            <money ng-if="!app.showMoneyDetails" class="total pull-right" value="incomeTotal()"></money>
+            Доходы
+            <span ng-if="!app.showMoneyDetails">(<money value="netIncome()"></money>)</span>
+        </h4>
+        <ul ng-if="app.showMoneyDetails" class="sub-list">
+            <li ng-repeat="i in game.income">
+                <money class="pull-right" value="incomeByType(i.type)"></money>
+                {{i.title}}
+            </li>
+            <li class="sub-total">
+                <money class="pull-right" value="netIncome()"></money>
+                Пасивный доход
+            </li>
+            <li class="total">
+                <money class="pull-right" value="incomeTotal()"></money>
+            </li>
+        </ul>
+
+    </div>
+    <div class="col">
+        <h4 ng-click="app.showMoneyDetails = !app.showMoneyDetails">
+            <money ng-if="!app.showMoneyDetails" class="total pull-right" value="expensesTotal()"></money>
+            Расходы
+        </h4>
+        <ul ng-if="app.showMoneyDetails" class="sub-list">
+            <li ng-repeat="e in game.expenses">
+                <money class="pull-right" value="expensesByType(e.type)"></money>
+                {{e.title}}
+            </li>
+            <li ng-repeat="el in game.liabilities">
+                <money class="pull-right" value="expensesByLiability(el)"></money>
+                {{el.title}}
+            </li>
+            <li class="total">
+                <money class="pull-right" value="expensesTotal()"></money>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <div class="main-total">
+            <money class="pull-right" value="total()"></money>
+            Общий доход
+            <div class="text-right">
+                <button class="btn-default btn" ng-click="getCheck()">Получить чек</button>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="main-total">
+            <money class="pull-right" value="game.balance"></money>
+            Баланс
+            <div class="text-right">
+                <button class="btn btn-default" ng-click="unemployment()">
+                    Безработица
+                    <span ng-if="unemploymentCounter">({{unemploymentCounter}})</span>
+                </button>
+                <button class="btn btn-default" ng-click="app.showPayment=true;">Расходы</button>
+
+                <!--payment form -->
+                <div class="bubble-container" ng-if="app.showPayment" ng-include="'views/_payment.html'"></div>
+                <!--payment form -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <i class="icon icon-plus pull-right" ng-click="app.showNewAsset = true;"></i>
+        <!--asset form -->
+        <div ng-if="app.showNewAsset" class="bubble-container" ng-include="'views/_asset.html'"></div>
+        <!--asset form -->
+        <h4>Активы</h4>
+        <ul class="sub-list">
+            <li ng-repeat="(at,al) in game.assets">
+                <b>{{asset_types[at]}}</b>
+                <li ng-repeat="a in al">
+                    <money value="assetPrice(a)" class="pull-right"></money>
+                    {{a.title}} (<money value="a.income"></money>)
+                    <div class="row">
+                        <div class="col">
+                            <money class="pull-right" value="a.payment"></money>
+                            Первый взнос:
+                        </div>
+                        <div class="col">
+                            <money class="pull-right" value="a.mortgage"></money>
+                            Ипотека:
+                        </div>
+                    </div>
+                </li>
+            </li>
+        </ul>
+    </div>
+    <div class="col">
+        <h4>Пасивы</h4>
+        <ul class="sub-list">
+            <li ng-repeat="l in game.liabilities">
+                <div class="pull-right">
+                    <money value="l.price" ng-if="l.type!=='credit'"></money>
+                    <div ng-if="l.type==='credit'">
+                        <button class="btn btn-default btn-inline" ng-click="app.showCredit = true;">
+                            <money value="l.price"  ></money>
+                        </button>
+                        <!--credit form -->
+                        <div ng-if="app.showCredit" class="bubble-container" ng-include="'views/_credit.html'"></div>
+                        <!--credit form -->
+                    </div>
+                </div>
+                {{l.title}} (<money value="expensesByLiability(l)"></money>)
+            </li>
+        </ul>
+    </div>
+</div>

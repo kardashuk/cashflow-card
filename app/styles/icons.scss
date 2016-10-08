@@ -1,0 +1,25 @@
+.icon{
+  cursor: pointer;
+  font-style: normal;
+  color: rgba(0,0,0,.3);
+  &:hover{
+    color: rgba(0,0,0,.5);
+  }
+  &.icon-remove:before{
+    content: '\002716';
+  }
+  &.icon-settings:before{
+    content: '\002699';
+  }
+  &.icon-menu:before{
+    content: '\002630';
+  }
+  &.icon-plus:before{
+    content: '\00271A';
+  }
+}
+.icon-menu{
+  position: absolute;
+  top:10px;
+  right: 10px;
+}

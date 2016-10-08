@@ -1,0 +1,9 @@
+<div class="bubble-shade"  ng-click="cancelPayment()"></div>
+<div class="pull-right bubble text-left">
+    <label>Сколько:</label><br/>
+    <input type="number" ng-model="payment.amount" step="1" />
+    <div class="btn-row">
+        <button class="btn btn-cancel" ng-click="cancelPayment()">Отмена</button>
+        <button class="btn btn-main" ng-click="applyPayment()">Оплатить</button>
+    </div>
+</div>

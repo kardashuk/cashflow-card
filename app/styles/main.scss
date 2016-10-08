@@ -1,0 +1,75 @@
+@import "ui-reset";
+@import "ui-layout";
+@import "icons";
+@import "ui-buttons";
+@import "ui-bubble";
+
+
+.main{
+  background-color: #fff;
+  margin: 0 auto;
+  min-height: 100%;
+  max-width: 520px;
+  box-shadow: 0 0 3px rgba(0,0,0,.15);
+  padding: 20px;
+  position: relative;
+}
+
+.game{
+  padding: 10px 20px;
+  &:hover{
+    background-color: #f5f5f5;
+  }
+}
+
+.money{
+  &.positive{
+    color: green;
+  }
+  &.negative{
+    color: red;
+  }
+}
+.total{
+  font-size: 1.1em;
+  font-weight: bold;
+}
+.sub-total{
+  font-size: .9em;
+  font-weight: bold;
+}
+.main-total{
+  border-top: 1px solid rgba(0,0,0,.2);
+  border-bottom: 1px solid rgba(0,0,0,.2);
+  margin: 10px 0;
+  padding: 10px 0;
+  font-size: 1.2em;
+}
+
+.sub-list{
+  font-size: .8em;
+  .money{
+    font-size: 1.1em;
+  }
+  li{
+    padding: 5px 0 0;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+    &:last-child{
+      border-bottom: none;
+    }
+  }
+}
+
+
+.player-card{
+  input[type=number]{
+    float: right;
+    max-width: 30%;
+    text-align: right;
+  }
+  label{
+    margin-bottom: 7px;
+    display: inline-block;
+  }
+}
+

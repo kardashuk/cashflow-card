@@ -1,0 +1,9 @@
+<ul>
+    <li ng-repeat="g in games" class="game">
+        <i class="icon icon-remove pull-right" ng-click="removeGame($index)"></i>
+        <div ng-click="startGame($index)">#{{$index+1}} {{g.player.name}} ({{g.player.job}})</div>
+    </li>
+    <li class="text-center">
+        <button class="btn" ng-click="startNewGame()">Start New Game</button>
+    </li>
+</ul>

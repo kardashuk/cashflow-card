@@ -1,0 +1,19 @@
+<div class="bubble-shade" ng-click="cancelCredit()"></div>
+<div class="pull-right bubble text-left" >
+    <div ng-if="!credit.type">
+        <label>Что делаем?</label>
+        <div class="btn-row nowrap" ng-init="credit.type=l.price?credit.type:'get'">
+            <button class="btn btn-main" ng-click="credit.type='pay'">Оплатить</button>
+            <button class="btn btn-main" ng-click="credit.type='get'">Взять ещё</button>
+        </div>
+    </div>
+    <div ng-if="credit.type">
+        <label>Сколько:</label><br/>
+        <input type="number" ng-model="credit.amount" step="1000" min="0" />
+        <div class="btn-row">
+            <button class="btn btn-cancel" ng-click="cancelCredit()">Отмена</button>
+            <button class="btn btn-main" ng-click="getCredit(l)" ng-if="credit.type=='get'">Взять</button>
+            <button class="btn btn-main" ng-click="payCredit(l)" ng-if="credit.type=='pay'">Оплатить</button>
+        </div>
+    </div>
+</div>

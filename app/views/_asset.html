@@ -1,0 +1,91 @@
+<div class="bubble-shade" ng-click="cancelCredit()"></div>
+<div class="pull-right bubble text-left">
+    <div ng-if="!asset.type">
+        <label>Вид актива</label>
+        <select ng-model="asset.type" ng-options="name as title for (name,title) in asset_types"></select>
+    </div>
+
+    <div ng-if="asset.type === 'real_estate'">
+        <div>
+            <label>Название:</label><br/>
+            <input  ng-model="asset.title" />
+        </div>
+        <div>
+            <label>Цена:</label><br/>
+            <input  ng-model="asset.price" />
+        </div>
+        <div>
+            <label>Первый взнос:</label><br/>
+            <input  ng-model="asset.payment" />
+        </div>
+        <div>
+            <label>Ипотека:</label><br/>
+            <input  ng-model="asset.mortgage" />
+        </div>
+        <div>
+            <label>Доходность:</label><br/>
+            <input  ng-model="asset.income" />
+        </div>
+    </div>
+
+    <div ng-if="asset.type === 'business'">
+        <div>
+            <label>Название:</label><br/>
+            <input  ng-model="asset.title" />
+        </div>
+        <div>
+            <label>Цена:</label><br/>
+            <input  ng-model="asset.price" />
+        </div>
+        <div>
+            <label>Первый взнос:</label><br/>
+            <input  ng-model="asset.payment" />
+        </div>
+        <div>
+            <label>Долг:</label><br/>
+            <input  ng-model="asset.mortgage" />
+        </div>
+        <div>
+            <label>Доходность:</label><br/>
+            <input  ng-model="asset.income" />
+        </div>
+    </div>
+
+    <div ng-if="asset.type === 'others'">
+        <div>
+            <label>Название:</label><br/>
+            <input  ng-model="asset.title" />
+        </div>
+        <div>
+            <label>Цена:</label><br/>
+            <input  ng-model="asset.price" />
+        </div>
+        <div>
+            <label>Доходность:</label><br/>
+            <input  ng-model="asset.income" />
+        </div>
+    </div>
+
+    <div ng-if="asset.type === 'shares'">
+        <div>
+            <label>Название:</label><br/>
+            <input  ng-model="asset.title" />
+        </div>
+        <div>
+            <label>Цена за штуку:</label><br/>
+            <input  ng-model="asset.item_price" />
+        </div>
+        <div>
+            <label>Количество:</label><br/>
+            <input  ng-model="asset.item_count" />
+        </div>
+        <div>
+            <label>ИТОГО:</label> <money value="asset.item_price * asset.item_count"></money>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn btn-cancel" ng-click="cancelAsset(a)">Отмена</button>
+        <button class="btn btn-main" ng-if="asset.type" ng-click="saveAsset(a)">Ok</button>
+    </div>
+</div>

@@ -1,0 +1,61 @@
+
+
+<div class="row">
+    <div class="col">
+        <label>Имя Игрока/Игры</label>
+        <input ng-model="player.name" class="input-block" />
+    </div>
+    <div class="col">
+        <label>Профессия</label><br/>
+        <select ng-model="player.profession" ng-options="pName as p.title for (pName,p) in professions"
+                ng-change="applyProfession(player)"></select>
+    </div>
+</div>
+<hr />
+<div ng-if="player.profession" >
+    <div class="row">
+        <div class="col col-lg">
+            <div ng-if="player.profession.name==='custom'">
+                <label>Название професии</label>
+                <input ng-model="player.job" />
+            </div>
+            <div>
+                <label>Зарплата</label>
+                <input ng-model="player.salary" type="number" />
+            </div>
+            <div>
+                <label>Налоги</label>
+                <input ng-model="player.tax_expenses" type="number" />
+            </div>
+            <div ng-repeat="l in player.liabilities">
+                {{l.title}}
+                <input ng-model="l.expenses" type="number" />
+            </div>
+            <div>
+                <label>Другие расходы</label>
+                <input ng-model="player.other_expenses" type="number" />
+            </div>
+            <div>
+                <label>Затраты на детей</label>
+                <input ng-model="player.child_expenses" type="number" />
+            </div>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col">
+            <h4>Активы</h4>
+            <label>Сбережения</label>
+            <input ng-model="player.money" type="number" />
+        </div>
+        <div class="col">
+            <h4>Пасивы</h4>
+            <div ng-repeat="l in player.liabilities">
+                <label>{{l.title}}</label>
+                <input ng-model="l.price" type="number" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<button class="pull-right btn" ng-click="savePlayer(player);">Next</button>
