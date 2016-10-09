@@ -14,76 +14,76 @@
 
     <div ng-if="asset.type === 'real_estate'">
         <div>
-            <label>Название:</label><br/>
+            <label>Название:</label>
             <input  ng-model="asset.title" />
         </div>
         <div>
-            <label>Цена:</label><br/>
-            <input  ng-model="asset.price" />
+            <label>Цена:</label>
+            <input  ng-model="asset.price" ng-change="asset.mortgage = asset.price-asset.payment"/>
         </div>
         <div>
-            <label>Первый взнос:</label><br/>
-            <input  ng-model="asset.payment"  ng-change="asset.mortgage = asset.price - asset.payment" />
+            <label>Первый взнос:</label>
+            <input  ng-model="asset.payment"   ng-change="asset.mortgage = asset.price-asset.payment"  />
         </div>
         <div>
-            <label>Ипотека:</label><br/>
-            <input  ng-model="asset.mortgage" ng-change="asset.payment = asset.price - asset.mortgage"/>
+            <label>Ипотека:</label>
+            <money value="asset.mortgage"></money>
         </div>
         <div>
-            <label>Доходность:</label><br/>
+            <label>Доходность:</label>
             <input  ng-model="asset.income" />
         </div>
     </div>
 
     <div ng-if="asset.type === 'business'">
         <div>
-            <label>Название:</label><br/>
+            <label>Название:</label>
             <input  ng-model="asset.title" />
         </div>
         <div>
-            <label>Цена:</label><br/>
-            <input  ng-model="asset.price" />
+            <label>Цена:</label>
+            <input  ng-model="asset.price"  ng-change="asset.mortgage = asset.price-asset.payment"  />
         </div>
         <div>
-            <label>Первый взнос:</label><br/>
-            <input  ng-model="asset.payment" ng-change="asset.mortgage = asset.price - asset.payment" />
+            <label>Первый взнос:</label>
+            <input  ng-model="asset.payment" ng-change="asset.mortgage = asset.price-asset.payment"   />
         </div>
         <div>
-            <label>Долг:</label><br/>
-            <input  ng-model="asset.mortgage" ng-change="asset.payment = asset.price - asset.mortgage" />
+            <label>Долг:</label>
+            <money value="asset.mortgage||0"></money>
         </div>
         <div>
-            <label>Доходность:</label><br/>
+            <label>Доходность:</label>
             <input  ng-model="asset.income" />
         </div>
     </div>
 
     <div ng-if="asset.type === 'others'">
         <div>
-            <label>Название:</label><br/>
+            <label>Название:</label>
             <input  ng-model="asset.title" />
         </div>
         <div>
-            <label>Цена:</label><br/>
+            <label>Цена:</label>
             <input  ng-model="asset.price" />
         </div>
         <div>
-            <label>Доходность:</label><br/>
+            <label>Доходность:</label>
             <input  ng-model="asset.income" />
         </div>
     </div>
 
     <div ng-if="asset.type === 'shares'">
         <div>
-            <label>Название:</label><br/>
+            <label>Название:</label>
             <input  ng-model="asset.title" />
         </div>
         <div>
-            <label>Цена за штуку:</label><br/>
+            <label>Цена за штуку:</label>
             <input  ng-model="asset.item_price" />
         </div>
         <div>
-            <label>Количество:</label><br/>
+            <label>Количество:</label>
             <input  ng-model="asset.items_count" />
         </div>
         <div>

@@ -74,6 +74,16 @@
 }
 .menu-row{
   border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+  margin: -20px -20px 20px;
+  padding: 10px 40px 4px;
+  text-align: center;
+  .menu-btn{
+    padding: 1px 17px 5px;
+    background-color: transparent;
+    border-radius: 0;
+    float: left;
+    margin-top: -11px;
+    font-size: 2em;
+    margin-left: -40px;
+  }
 }
