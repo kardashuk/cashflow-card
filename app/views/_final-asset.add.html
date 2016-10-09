@@ -1,0 +1,23 @@
+<div class="bubble-shade" ng-click="cancelFinalAsset()"></div>
+<div class="pull-right bubble text-left">
+    <div>
+        <div>
+            <label>Название:</label>
+            <input  ng-model="fasset.title" />
+        </div>
+        <div>
+            <label>Цена:</label>
+            <input  ng-model="fasset.price"   />
+        </div>
+        <div>
+            <label>Доходность:</label>
+            <input  ng-model="fasset.income" />
+        </div>
+    </div>
+
+
+    <div class="btn-row">
+        <button class="btn btn-cancel" ng-click="cancelFinalAsset(a)">Отмена</button>
+        <button class="btn btn-main"  ng-click="saveFinalAsset(fasset)">Ok</button>
+    </div>
+</div>

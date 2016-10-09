@@ -1,0 +1,9 @@
+<ul>
+    <li ng-repeat="a in game.final.assets">
+        <i class="pull-right icon icon-remove btn btn-default btn-box" ng-click="removeFinalAsset(a)"></i>
+        <h4>
+            <money value="a.price" class="pull-right"></money>
+            <b>{{a.title}}</b> (<money value="a.income"></money>)
+        </h4>
+    </li>
+</ul>

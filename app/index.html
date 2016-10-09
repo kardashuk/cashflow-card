@@ -20,8 +20,8 @@
         <div ng-if="!game" ng-include="'views/main.html'"></div>
         <div ng-if="game">
             <div ng-if="!game.player" ng-include="'views/player.html'" class="player-card"></div>
-            <div ng-if="game.player"  ng-include="'views/rat-card.html'"></div>
-
+            <div ng-if="game.player && !game.final"  ng-include="'views/rat-card.html'"></div>
+            <div ng-if="game.final"  ng-include="'views/final-card.html'"></div>
         </div>
     </div>
     <!-- build:js(.) scripts/vendor.js -->

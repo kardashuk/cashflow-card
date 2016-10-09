@@ -325,5 +325,64 @@ function ($scope, $storage, ProfessionsService) {
             $scope.cancelShareActions(asset);
         }
     };
+//Final
+    $scope.checkWin = function(){
+        if ($scope.netFinalIncome() >= 50000){
+            $scope.finalGame();
+        }
+    };
+    $scope._finalPayment = function(price){
+        $scope.game.final.balance -= parseInt(price,10);
+    };
+    $scope.startFinal = function(){
+        var old_income = Math.round($scope.netIncome()/1000)*1000;
+        $scope.game.final = {
+            old_income: old_income,
+            income: old_income*100,
+            balance: $scope.game.balance + old_income*100,
+            assets:[]
+        };
+    };
+    $scope.netFinalIncome = function(){
+        return $scope._sum($scope.game.final.assets, function(a){
+            return a.income;
+        });
+    };
+    $scope.finalIncome = function(){
+        return $scope.game.final.income + $scope.netFinalIncome();
+    };
+    $scope.finalX0 = function(){
+        $scope.game.final.balance = 0;
+    };
+    $scope.finalDiv2 = function(){
+        $scope.game.final.balance = Math.round($scope.game.final.balance/2);
+    };
+    $scope.getFinalCheck = function(){
+        $scope.game.final.balance += $scope.finalIncome();
+    };
+    $scope.fasset ={};
 
+    $scope.removeFinalAsset = function(asset){
+        var price = parseInt(prompt('За сколько продаем?',asset.price), 10);
+        $scope._finalPayment(-price);
+        $scope.game.final.assets.splice($scope.game.final.assets.indexOf(asset),1);
+    };
+    $scope.saveFinalAsset = function(asset){
+        if (asset.price > $scope.game.final.balance){
+            alert('У вас не хватает денег');
+        }else{
+            $scope._finalPayment(asset.price);
+            $scope.game.final.assets.push(asset);
+            $scope.checkWin();
+        }
+    };
+    $scope.cancelFinalAsset = function(a){
+        $scope.app.showNewFAsset = false;
+        $scope.fasset = {};
+    };
+
+    $scope.finalGame = function(){
+        alert('ПОЗДРАВЛЯЕМ Вы победили!');
+        $scope.game = null;
+    };
 }]);

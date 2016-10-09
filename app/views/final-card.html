@@ -1,0 +1,53 @@
+<div class="menu-row">
+    <div class="pull-right">
+        Детей: {{game.player.child_count}}
+        <span ng-if="game.player.child_count<3" class="btn btn-default btn-box icon icon-plus" ng-click="newborn()"></span>
+    </div>
+    <h3>
+        <i class="icon icon-back btn btn-box btn-default menu-btn" ng-click="stopGame()"></i>
+        {{game.player.name}} ({{game.player.job}})
+    </h3>
+</div>
+
+<div class="">
+    <div class="row">
+        <div class="col">
+            <div>
+                <money class="pull-right" value="finalIncome()"></money>
+                Ваш доход
+            </div>
+        </div>
+        <div class="col">
+            <div>
+                <money class="pull-right" value="game.final.balance"></money>
+                Баланс
+            </div>
+        </div>
+    </div>
+    <div class="text-right">
+      <button class="btn btn-default" ng-click="finalX0()">
+            x0
+        </button>
+        <button class="btn btn-default" ng-click="finalDiv2()">
+            x1/2
+        </button>
+        <button class="btn-main btn" ng-click="getFinalCheck()">
+            Получить чек
+        </button>
+    </div>
+</div>
+<hr/>
+<div class="final-row">
+    <i class="icon icon-plus pull-right" ng-click="app.showNewFAsset = true;"></i>
+    <h3 >Активы</h3>
+    <!--asset form -->
+    <div ng-if="app.showNewFAsset" class="bubble-container" ng-include="'views/_final-asset.add.html'"></div>
+    <!--asset form -->
+    <ul class="final-list" ng-include="'views/_final-assets.view.html'"></ul>
+
+
+</div>
+<hr/>
+<div class="text-center">
+    <button class="btn btn-main" ng-click="finalGame();">Купить мечту</button>
+</div>

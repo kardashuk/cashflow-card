@@ -107,3 +107,7 @@
         <ul  ng-if="!hideLiabilities" class="sub-list" ng-include="'views/_liabilities.view.html'"></ul>
     </div>
 </div>
+
+<div class="text-center" ng-if="netIncome() >= expensesTotal()">
+    <button class="btn btn-main" ng-click="startFinal()">Перейти на скоросной круг</button>
+</div>
